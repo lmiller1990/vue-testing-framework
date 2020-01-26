@@ -1,34 +1,20 @@
-import { defineComponent, h, ComponentPublicInstance, createApp } from 'vue'
+import { ComponentPublicInstance, createApp } from 'vue'
 
-export const Component = defineComponent({
-  name: 'Component',
-
-  setup() {
-    return {
-      msg: 'world',
-      count: 0,
-    }
-  },
-
-  render() {
-    return h(
-      'div', {}, [
-      h('span', { onClick: () => this.count++ }, `Count is ${this.count}`)
-    ]
-    )
-  }
-})
-
-interface WrapperBaseAPI {
-  find: (selector: string) => DOMWrapper | VueWrapper | undefined
-  trigger: (eventString: string) => void
+interface WrapperAPI {
+  classes: () => string[]
+  find<T extends Element>(selector: string): DOMWrapper<T>
+  findAll<T extends Element>(selector: string): DOMWrapper<T>[]
 }
 
-class DOMWrapper implements WrapperBaseAPI {
-  element: Element
+class DOMWrapper<ElementType extends Element> implements WrapperAPI {
+  element: ElementType
 
-  constructor(element: Element) {
+  constructor(element: ElementType) {
     this.element = element
+  }
+
+  classes() {
+    return Array.from(this.element.classList)
   }
 
   text() {
@@ -39,11 +25,15 @@ class DOMWrapper implements WrapperBaseAPI {
     return this.element.outerHTML
   }
 
-  find(selector: string) {
-    const result = this.element.querySelector(selector)
+  find<T extends Element>(selector: string) {
+    const result = this.element.querySelector<T>(selector)
     if (result) {
-      return new DOMWrapper(result)
+      return new DOMWrapper<T>(result)
     }
+  }
+
+  findAll<T extends Element>(selector: string): DOMWrapper<T>[] {
+    return Array.from(this.element.querySelectorAll<T>(selector)).map(x => new DOMWrapper(x))
   }
 
   trigger(eventString: string) {
@@ -57,18 +47,32 @@ class DOMWrapper implements WrapperBaseAPI {
   }
 }
 
-class VueWrapper implements WrapperBaseAPI {
+class VueWrapper implements WrapperAPI {
   vm: ComponentPublicInstance
 
   constructor(vm: ComponentPublicInstance) {
     this.vm = vm
   }
 
-  find(selector: string) {
-    const result = this.vm.$el.querySelector(selector) as Element
+  classes(): string[] {
+    throw Error('TODO: Implement VueWrapper#classes')
+  }
+
+  html() {
+    return this.vm.$el.innerHTML
+  }
+
+
+  find<T extends Element>(selector: string): DOMWrapper<T> | undefined {
+    const result = this.vm.$el.querySelector(selector) as T
     if (result) {
       return new DOMWrapper(result)
     }
+  }
+
+  findAll<T extends Element>(selector: string): DOMWrapper<T>[] {
+    const results = (this.vm.$el as Element).querySelectorAll<T>(selector)
+    return Array.from(results).map(x => new DOMWrapper(x))
   }
 
   trigger(selector: string) { 
@@ -86,7 +90,7 @@ export const mount = (component: new () => ComponentPublicInstance): VueWrapper 
   el.id = 'app'
   document.body.appendChild(el)
 
-  const vm = createApp().mount(Component, '#app')
+  const vm = createApp().mount(component, '#app')
 
   return createWrapper(vm)
 }

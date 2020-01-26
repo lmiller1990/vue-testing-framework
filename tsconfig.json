@@ -6,8 +6,5 @@
     "lib": ["DOM", "ES2015"],
     "moduleResolution": "node"
   },
-  "exclude": [
-    "framework"
-  ],
   "include": ["app"]
 }
