@@ -19,7 +19,9 @@ export const TodoItem = defineComponent({
           'div', { className: `todo-item ${props.todo.complete ? 'todo-item-complete' : ''}` }, [
           h('div', {}, props.todo.text),
           h('button', { 
-            onClick: () => ctx.emit('toggle'),
+            onClick: () => {
+              ctx.emit('toggle', props.todo)
+            },
             disabled: props.todo.complete
           }, 'Complete')
         ]

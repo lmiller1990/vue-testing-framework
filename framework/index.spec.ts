@@ -1,8 +1,9 @@
-import { nextTick } from 'vue'
+import { nextTick, defineComponent, h } from 'vue'
 
 import { mount } from  './index'
 import { App } from '../app/App'
 import { TodoItem } from '../app/TodoItem'
+import { Todo } from '../app/types'
 
 describe('App', () => {
   it('renders 3 todos', () => {
@@ -26,15 +27,28 @@ describe('App', () => {
 })
 
 describe('TodoItem', () => {
-  it('renders', () => {
-    const wrapper = mount(TodoItem, {
-      props: {
-        todo: {
-          id: 1,
-          text: 'Do some work',
-          complete: false
-        }
+  it('emits an event with a Todo with complete is clicked', async () => {
+    const todo: Todo = {
+      id: 1,
+      text: 'Do some work',
+      complete: false
+    }
+
+    const onToggleMock = jest.fn()
+    const Parent = defineComponent({
+      render() {
+        return h(TodoItem, {
+          todo,
+          onToggle: onToggleMock
+        })
       }
     })
+
+    const wrapper = mount(Parent)
+
+    wrapper.find('button').trigger('click')
+    await nextTick()
+
+    expect(onToggleMock).toHaveBeenCalledWith(todo)
   })
 })
