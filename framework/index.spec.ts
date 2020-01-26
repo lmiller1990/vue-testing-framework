@@ -2,6 +2,7 @@ import { nextTick } from 'vue'
 
 import { mount } from  './index'
 import { App } from '../app/App'
+import { TodoItem } from '../app/TodoItem'
 
 describe('App', () => {
   it('renders 3 todos', () => {
@@ -21,5 +22,19 @@ describe('App', () => {
 
     expect(todo.classes()).toContain('todo-item-complete')
     expect(button.element.disabled).toBe(true)
+  })
+})
+
+describe('TodoItem', () => {
+  it('renders', () => {
+    const wrapper = mount(TodoItem, {
+      props: {
+        todo: {
+          id: 1,
+          text: 'Do some work',
+          complete: false
+        }
+      }
+    })
   })
 })
