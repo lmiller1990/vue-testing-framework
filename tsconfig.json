@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
-    "lib": ["esnext", "dom"]
-  }
+    "target": "es5",
+    "outDir": "dist",
+    "module": "esnext",
+    "lib": ["DOM", "ES2015"],
+    "moduleResolution": "node"
+  },
+  "exclude": [
+    "framework"
+  ],
+  "include": ["app"]
 }

@@ -1,9 +1,18 @@
 {
   "dependencies": {
+    "@babel/types": "^7.8.3",
+    "@types/estree": "^0.0.42",
     "@types/jest": "^24.9.1",
+    "awesome-typescript-loader": "^5.2.1",
     "jest": "^25.1.0",
     "ts-jest": "^25.0.0",
     "typescript": "^3.7.5",
-    "vue": "^3.0.0-alpha.3"
+    "vue": "^3.0.0-alpha.3",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "scripts": {
+    "jest": "yarn jest",
+    "dev": "yarn webpack --mode=development --watch"
   }
 }
