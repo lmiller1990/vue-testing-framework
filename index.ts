@@ -21,6 +21,7 @@ export const Component = defineComponent({
 
 interface WrapperBaseAPI {
   find: (selector: string) => DOMWrapper | VueWrapper | undefined
+  trigger: (eventString: string) => void
 }
 
 class DOMWrapper implements WrapperBaseAPI {
@@ -44,6 +45,16 @@ class DOMWrapper implements WrapperBaseAPI {
       return new DOMWrapper(result)
     }
   }
+
+  trigger(eventString: string) {
+    const evt = document.createEvent('Event')
+    evt.initEvent(eventString)
+
+    if (this.element) {
+      this.element.dispatchEvent(evt)
+      return
+    }
+  }
 }
 
 class VueWrapper implements WrapperBaseAPI {
@@ -58,6 +69,10 @@ class VueWrapper implements WrapperBaseAPI {
     if (result) {
       return new DOMWrapper(result)
     }
+  }
+
+  trigger(selector: string) { 
+    throw Error('TODO: Implement VueWrapper#trigger')
   }
 }
 
