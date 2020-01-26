@@ -1,20 +1,41 @@
-import { defineComponent, h, createApp } from 'vue'
+import { defineComponent, h, createApp, ref } from 'vue'
+
+import { TodoItem } from './TodoItem'
+import { Todo } from './types'
 
 export const Component = defineComponent({
   name: 'App',
 
-  setup() {
-    return {
-      msg: 'world',
-      count: 0,
-    }
+  components: {
+    TodoItem
   },
 
-  render() {
-    return h(
-      'div', {}, [
-      h('span', { onClick: () => this.count++ }, `Count is ${this.count}`)
-    ]
+  setup() {
+    const todos = ref<Todo[]>([
+      { id: 1, text: 'Learn Vue.js 3', complete: false },
+      { id: 2, text: 'Update VTU to work with Vue.js 3', complete: false },
+      { id: 3, text: 'Port Vuex to Vue 3', complete: false },
+    ])
+
+    const toggleComplete = (todo: Todo) => {
+      const idx = todos.value.findIndex(x => x.id === todo.id) 
+      todos.value[idx].complete = !todos.value[idx].complete
+    }
+
+    return () => h(
+      'div', 
+      {}, 
+      [
+        todos.value.map(todo => 
+          h(
+            TodoItem, 
+            { 
+              todo: todo, 
+              onToggle: () => toggleComplete(todo) 
+            }
+          )
+        )
+      ]
     )
   }
 })
