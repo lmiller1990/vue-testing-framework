@@ -18,3 +18,10 @@ If you see some code that looks suspect/could be improved, you can make an issue
 - "The more your tests resemble the way your software is used, the more confidence they can give you" - Kent Dodds
 - Avoid the need to access the raw `vm` element
 - Support SFCs by `vue-jest`
+
+## Features I want to try and support
+
+- Capture emitted events
+- Good API for testing components with slots (VTU pain point)
+- Alternative to `shalllowMount`
+- Tools for testing composition API components
