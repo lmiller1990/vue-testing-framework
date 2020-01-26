@@ -6,7 +6,9 @@ Experimental Vue 3 testing framework build for a first class TypeScript developm
 
 Just an experiment. I want to try building some small apps with Vue 3, testing them as I go. Upgrading Vue Test Utils to work with Vue 3 will take some time and consideration. This is me exploring what a less featureful, TypeScript first testing framework might look like.
 
-This is **not** the next iteration of VTU. It's just something I'm working on, to learn better how to build a testing framework. This will help me make VTU better in the future. No-one wants to use someone's side project or learning project in production.
+This is **not** the next iteration of VTU. It's just something I'm working on, to learn better how to build a testing framework. This will help me make VTU better in the future. No-one wants to use someone's side project or learning project in production - which is why I'm exploring ideas here. I hope VTU will benefit from my learnings.
+
+If you see some code that looks suspect/could be improved, you can make an issue/PR or contact me on Vueland, or send me an email.
 
 ## Goals
 
