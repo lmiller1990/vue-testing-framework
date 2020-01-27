@@ -42,6 +42,4 @@ test('findComponent', () => {
 
   expect(wrapper.find('#comp-c')).toBeTruthy()
   expect(wrapper.find('#comp-c').text()).toBe('Component C')
-
-  wrapper.findComponent('CompC')
 })

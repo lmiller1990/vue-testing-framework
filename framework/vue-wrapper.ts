@@ -22,13 +22,6 @@ export class VueWrapper implements WrapperAPI {
     return this.vm.$el.textContent
   }
 
-  findComponent(name: string): any {
-    // @ts-ignore
-    for (const el of Array.from(this.vm.$root.subTree.children)) {
-        console.log(el) 
-      }
-  }
-
   find<T extends Element>(selector: string): DOMWrapper<T> | undefined {
     const result = this.vm.$el.querySelector(selector) as T
     if (result) {
