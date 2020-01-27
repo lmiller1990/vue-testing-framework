@@ -3,6 +3,7 @@ import { nextTick, defineComponent, h } from 'vue'
 import { mount } from  '../framework'
 import { App } from '../app/App'
 import { TodoItem } from '../app/TodoItem'
+import { Toggle } from '../app/Toggle'
 import { Todo } from '../app/types'
 
 describe('App', () => {
@@ -50,5 +51,27 @@ describe('TodoItem', () => {
     await nextTick()
 
     expect(onToggleMock).toHaveBeenCalledWith(todo)
+  })
+})
+
+describe('Toggle', () => {
+  it('hides message when visible is false', () => {
+    const wrapper = mount(Toggle, {
+      props: {
+        visible: false
+      }
+    })
+
+    expect(wrapper.find('#message')).toBeFalsy()
+  })
+
+  it('reveals message when visible is true', () => {
+    const wrapper = mount(Toggle, {
+      props: {
+        visible: true
+      }
+    })
+
+    expect(wrapper.find('#message')).toBeTruthy()
   })
 })

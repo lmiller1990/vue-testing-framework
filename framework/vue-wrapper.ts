@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, createApp, h } from 'vue'
+import { ComponentPublicInstance } from 'vue'
 
 import { DOMWrapper } from './dom-wrapper'
 import { WrapperAPI } from './types'

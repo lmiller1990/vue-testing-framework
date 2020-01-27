@@ -20,7 +20,10 @@ export const Toggle = defineComponent({
         'Toggle Visible'
       )
 
-      const message = props.visible && h('div', {}, 'This is visible')
+      const message = props.visible && h(
+        'div', {
+          id: 'message'
+        }, 'This is visible')
 
       return h('div', {}, [btn, message])
     }
