@@ -15,9 +15,12 @@ export class VueWrapper implements WrapperAPI {
   }
 
   html() {
-    return this.vm.$el.innerHTML
+    return this.vm.$el.outerHTML
   }
 
+  text() {
+    return this.vm.$el.textContent
+  }
 
   find<T extends Element>(selector: string): DOMWrapper<T> | undefined {
     const result = this.vm.$el.querySelector(selector) as T

@@ -25,3 +25,79 @@ If you see some code that looks suspect/could be improved, you can make an issue
 - Good API for testing components with slots (VTU pain point)
 - Alternative to `shalllowMount`
 - Tools for testing composition API components
+
+## Supported Features
+
+### getting html/text with `html` and `text`
+
+```ts
+test('html, text', async () => {
+  const Component = defineComponent({
+    render() {
+      return h('div', {}, 'Text content')
+    }
+  })
+
+  const wrapper = mount(Component)
+  await nextTick()
+
+  expect(wrapper.html()).toBe('<div>Text content</div>') // via $el.outerHTML
+  expect(wrapper.text()).toBe('Text content') // via $el.textContent
+})
+```
+
+### finding elements with `find` and `findAll`
+
+```ts
+test('find', () => {
+  const Component = defineComponent({
+    render() {
+      return h('div', {}, [h('span', { id: 'my-span' })])
+    }
+  })
+
+  const wrapper = mount(Component)
+  expect(wrapper.find('#my-span')).toBeTruthy()
+})
+
+test('findAll', () => {
+  const Component = defineComponent({
+    render() {
+      return h('div', {}, [
+        h('span', { className: 'span' }),
+        h('span', { className: 'span' })
+      ])
+    }
+  })
+
+  const wrapper = mount(Component)
+  expect(wrapper.findAll('.span')).toHaveLength(2)
+})
+```
+
+### simulating events with `trigger`
+
+```ts
+test('trigger', async () => {
+  const Component = defineComponent({
+    setup() {
+      return {
+        count: ref(0)
+      }
+    },
+
+    render() {
+      return h('div', {}, [
+        h('p', {}, `Count: ${this.count}`),
+        h('button', { onClick: () => this.count++ })
+      ])
+    }
+  })
+
+  const wrapper = mount(Component)
+  wrapper.find('button').trigger('click')
+  await nextTick()
+
+  expect(wrapper.find('p').text()).toBe('Count: 1')
+})
+```
