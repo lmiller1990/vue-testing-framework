@@ -7,6 +7,11 @@
 </head>
 <body>
   <style>
+    body {
+      color: white;
+      background: black;
+    }
+
     .todo-item {
       display: flex;
       justify-content: space-between;
@@ -16,6 +21,14 @@
 
     .todo-item-complete {
       text-decoration: line-through;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s;
+    }
+
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
     }
   </style>
   <div id="app"></div>
