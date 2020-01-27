@@ -1,6 +1,6 @@
 import { nextTick, defineComponent, h } from 'vue'
 
-import { mount } from  './index'
+import { mount } from  '../framework'
 import { App } from '../app/App'
 import { TodoItem } from '../app/TodoItem'
 import { Todo } from '../app/types'
