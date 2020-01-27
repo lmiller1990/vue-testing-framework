@@ -6,3 +6,6 @@ export interface WrapperAPI {
   findAll<T extends Element>(selector: string): DOMWrapper<T>[]
 }
 
+export interface Hashmap<T> {
+  [key: string]: T
+}

@@ -1,9 +1,16 @@
-import { ComponentPublicInstance, createApp } from 'vue'
+import { ComponentPublicInstance, createApp, VNode, defineComponent, h } from 'vue'
 
+import { Hashmap } from './types'
 import { VueWrapper, createWrapper } from './vue-wrapper'
 
+type Slot = VNode | string
+
 interface MountingOptions<Props> {
-  props: Props
+  props?: Props
+  slots?: {
+    default?: Slot
+    [key: string]: Slot
+  }
 }
 
 export function mount<P>(
@@ -16,9 +23,19 @@ export function mount<P>(
   el.id = 'app'
   document.body.appendChild(el)
 
-  const vm = createApp().mount(component, '#app', {
-    ...options && options.props ? options.props : {}
+  const slots = options?.slots &&
+    Object.entries(options.slots).reduce<Hashmap<() => VNode | string>>((acc, [name, fn]) => {
+    acc[name] = () => fn
+    return acc
+  }, {})
+
+  const Parent = (props?: P) => defineComponent({
+    render() {
+      return h(component, props, slots)
+    }
   })
+
+  const vm = createApp().mount(Parent(options && options.props), '#app')
 
   return createWrapper(vm)
 }
