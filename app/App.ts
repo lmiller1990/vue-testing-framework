@@ -2,6 +2,8 @@ import { defineComponent, h, ref } from 'vue'
 
 import { TodoItem } from './TodoItem'
 import { Toggle } from './Toggle'
+import { ItemWithSlots } from './ItemWithSlots'
+import { Message } from './Message'
 import { Todo } from './types'
 
 export const App = defineComponent({
@@ -9,7 +11,9 @@ export const App = defineComponent({
 
   components: {
     TodoItem,
-    Toggle
+    Toggle,
+    Message,
+    ItemWithSlots
   },
 
   setup() {
@@ -49,8 +53,11 @@ export const App = defineComponent({
             visible: visible.value, 
             onToggleVisible: toggleVisible
           }
-        )
-      ]
+        ),
+        h('hr'),
+        h('h3', {}, 'Slots - default'),
+        h(ItemWithSlots, {}, () => h(Message))
+      ],
     )
   }
 })

@@ -1,9 +1,10 @@
-import { ComponentPublicInstance, createApp } from 'vue'
+import { ComponentPublicInstance, createApp, VNode, defineComponent, h } from 'vue'
 
 import { VueWrapper, createWrapper } from './vue-wrapper'
 
 interface MountingOptions<Props> {
-  props: Props
+  props?: Props
+  slots?: VNode
 }
 
 export function mount<P>(
@@ -16,9 +17,13 @@ export function mount<P>(
   el.id = 'app'
   document.body.appendChild(el)
 
-  const vm = createApp().mount(component, '#app', {
-    ...options && options.props ? options.props : {}
+  const Parent = (props?: P) => defineComponent({
+    render() {
+      return h(component, props, options && options.slots && (() => options.slots))
+    }
   })
+
+  const vm = createApp().mount(Parent(options && options.props), '#app')
 
   return createWrapper(vm)
 }
