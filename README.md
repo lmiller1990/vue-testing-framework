@@ -149,21 +149,23 @@ test('classes', () => {
 ### Passing default and named slots
 
 ```ts
-const Component = defineComponent({
-  render() {
-    return h('div', {}, [
-      h('div', {}, this.$slots.foo()),
-      h('div', {}, this.$slots.default())
-    ])
-  }
-})
+test('slots - default and named', () => {
+  const Component = defineComponent({
+    render() {
+      return h('div', {}, [
+        h('div', {}, this.$slots.foo()),
+        h('div', {}, this.$slots.default())
+      ])
+    }
+  })
 
-const wrapper = mount(Component, {
-  slots: {
-    default: 'Default',
-    foo: 'Named Slot'
-  }
-})
+  const wrapper = mount(Component, {
+    slots: {
+      default: 'Default',
+      foo: h('h1', {}, 'Named Slot')
+    }
+  })
 
-expect(wrapper.html()).toBe('<div><div>Named Slot</div><div>Default</div></div>')
+  expect(wrapper.html()).toBe('<div><div><h1>Named Slot</h1></div><div>Default</div></div>')
+})
 ```

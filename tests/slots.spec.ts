@@ -48,9 +48,9 @@ test('slots - default and named', () => {
   const wrapper = mount(Component, {
     slots: {
       default: 'Default',
-      foo: 'Named Slot'
+      foo: h('h1', {}, 'Named Slot')
     }
   })
 
-  expect(wrapper.html()).toBe('<div><div>Named Slot</div><div>Default</div></div>')
+  expect(wrapper.html()).toBe('<div><div><h1>Named Slot</h1></div><div>Default</div></div>')
 })
