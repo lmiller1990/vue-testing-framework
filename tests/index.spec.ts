@@ -1,4 +1,4 @@
-import { nextTick, defineComponent, h } from 'vue'
+import { defineComponent, h } from 'vue'
 
 import { mount } from  '../framework'
 import { App } from '../app/App'
@@ -19,8 +19,7 @@ describe('App', () => {
     const todo = wrapper.findAll('.todo-item')[0]
 
     const button = todo.find<HTMLButtonElement>('button')
-    button.trigger('click')
-    await nextTick()
+    await button.trigger('click')
 
     expect(todo.classes()).toContain('todo-item-complete')
     expect(button.element.disabled).toBe(true)
@@ -47,8 +46,7 @@ describe('TodoItem', () => {
 
     const wrapper = mount(Parent)
 
-    wrapper.find('button').trigger('click')
-    await nextTick()
+    await wrapper.find('button').trigger('click')
 
     expect(onToggleMock).toHaveBeenCalledWith(todo)
   })

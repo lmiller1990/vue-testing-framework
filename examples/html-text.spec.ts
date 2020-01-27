@@ -1,8 +1,8 @@
-import { defineComponent, h, nextTick } from 'vue'
+import { defineComponent, h } from 'vue'
 
 import { mount } from '../framework'
 
-test('html, text', async () => {
+test('html, text', () => {
   const Component = defineComponent({
     render() {
       return h('div', {}, 'Text content')
@@ -10,7 +10,6 @@ test('html, text', async () => {
   })
 
   const wrapper = mount(Component)
-  await nextTick()
 
   expect(wrapper.html()).toBe('<div>Text content</div>')
   expect(wrapper.text()).toBe('Text content')

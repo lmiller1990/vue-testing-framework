@@ -1,4 +1,4 @@
-import { defineComponent, h, nextTick, ref } from 'vue'
+import { defineComponent, h, ref } from 'vue'
 
 import { mount } from '../framework'
 
@@ -19,8 +19,7 @@ test('trigger', async () => {
   })
 
   const wrapper = mount(Component)
-  wrapper.find('button').trigger('click')
-  await nextTick()
+  await wrapper.find('button').trigger('click')
 
   expect(wrapper.find('p').text()).toBe('Count: 1')
 })

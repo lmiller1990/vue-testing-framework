@@ -1,4 +1,5 @@
 import { WrapperAPI } from './types'
+import { nextTick } from 'vue'
 
 export class DOMWrapper<ElementType extends Element> implements WrapperAPI {
   element: ElementType
@@ -30,13 +31,13 @@ export class DOMWrapper<ElementType extends Element> implements WrapperAPI {
     return Array.from(this.element.querySelectorAll<T>(selector)).map(x => new DOMWrapper(x))
   }
 
-  trigger(eventString: string) {
+  async trigger(eventString: string) {
     const evt = document.createEvent('Event')
     evt.initEvent(eventString)
 
     if (this.element) {
       this.element.dispatchEvent(evt)
-      return
+      return nextTick
     }
   }
 }

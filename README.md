@@ -23,7 +23,7 @@ If you see some code that looks suspect/could be improved, you can make an issue
 
 - Capture emitted events
 - Good API for testing components with slots (VTU pain point)
-- Alternative to `shalllowMount`
+- Merging `shalllowMount` into `mount` somehow. `mount(Component, { shallow: true })` or something?
 - Tools for testing composition API components
 
 ## Supported Features
@@ -39,13 +39,11 @@ test('html, text', async () => {
   })
 
   const wrapper = mount(Component)
-  await nextTick()
 
   expect(wrapper.html()).toBe('<div>Text content</div>') // via $el.outerHTML
   expect(wrapper.text()).toBe('Text content') // via $el.textContent
 })
 ```
-
 ### finding elements with `find` and `findAll`
 
 ```ts
@@ -95,8 +93,7 @@ test('trigger', async () => {
   })
 
   const wrapper = mount(Component)
-  wrapper.find('button').trigger('click')
-  await nextTick()
+  await wrapper.find('button').trigger('click')
 
   expect(wrapper.find('p').text()).toBe('Count: 1')
 })
