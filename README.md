@@ -101,3 +101,19 @@ test('trigger', async () => {
   expect(wrapper.find('p').text()).toBe('Count: 1')
 })
 ```
+
+### testing classes with `classes`
+
+```ts
+test('classes', () => {
+  const Component = defineComponent({
+    render() {
+      return h('div', {}, [h('span', { class: 'my-class-name' })])
+    }
+  })
+
+  const wrapper = mount(Component)
+
+  expect(wrapper.find('.my-class-name').classes()).toContain('my-class-name')
+})
+```
