@@ -5,8 +5,8 @@ import { VueWrapper, createWrapper } from './vue-wrapper'
 interface MountingOptions<Props> {
   props?: Props
   slots?: {
-    default?: VNode
-    [key: string]: VNode
+    default?: VNode | string
+    [key: string]: VNode | string
   }
 }
 
@@ -21,11 +21,13 @@ export function mount<P>(
   document.body.appendChild(el)
 
   const defaultSlot = options?.slots?.default
+
   const namedSlots = {}
-  for (const [slotName, slotFn] of Object.entries(options.slots)) {
-    namedSlots[slotName] = () => slotFn
+  if (options && options.slots) {
+    for (const [slotName, slotFn] of Object.entries(options.slots)) {
+      namedSlots[slotName] = () => slotFn
+    }
   }
-  
 
   const Parent = (props?: P) => defineComponent({
     render() {

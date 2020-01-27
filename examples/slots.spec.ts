@@ -2,14 +2,14 @@ import { defineComponent, h } from 'vue'
 
 import { mount } from '../framework'
 
-export const ItemWithSlots = defineComponent({
-  name: 'ItemWithSlots',
-  render() {
-    return h('div', {}, this.$slots.default())
-  }
-})
-
 test('slots - default', () => {
+  const ItemWithSlots = defineComponent({
+    name: 'ItemWithSlots',
+    render() {
+      return h('div', {}, this.$slots.default())
+    }
+  })
+
   const wrapper = mount(ItemWithSlots, {
     slots: {
       default: h('span', {}, 'Default Slot')
@@ -20,17 +20,37 @@ test('slots - default', () => {
 })
 
 test('slots - named', () => {
-  const Comp = defineComponent({
+  const ItemWithNamedSlot = defineComponent({
     render() {
       return h('div', {}, this.$slots.foo())
     }
   })
 
-  const wrapper = mount(Comp, {
+  const wrapper = mount(ItemWithNamedSlot, {
     slots: {
       foo: h('span', {}, 'Foo')
     }
   })
 
   expect(wrapper.html()).toBe('<div><span>Foo</span></div>')
+})
+
+test('slots - default and named', () => {
+  const Component = defineComponent({
+    render() {
+      return h('div', {}, [
+        h('div', {}, this.$slots.foo()),
+        h('div', {}, this.$slots.default())
+      ])
+    }
+  })
+
+  const wrapper = mount(Component, {
+    slots: {
+      default: 'Default',
+      foo: 'Named Slot'
+    }
+  })
+
+  expect(wrapper.html()).toBe('<div><div>Named Slot</div><div>Default</div></div>')
 })
