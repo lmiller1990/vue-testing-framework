@@ -1,13 +1,15 @@
 import { defineComponent, h, ref } from 'vue'
 
 import { TodoItem } from './TodoItem'
+import { Toggle } from './Toggle'
 import { Todo } from './types'
 
 export const App = defineComponent({
   name: 'App',
 
   components: {
-    TodoItem
+    TodoItem,
+    Toggle
   },
 
   setup() {
@@ -22,10 +24,14 @@ export const App = defineComponent({
       todos.value[idx].complete = !todos.value[idx].complete
     }
 
+    const visible = ref(true)
+    const toggleVisible = () => visible.value = !visible.value
+
     return () => h(
       'div', 
       {}, 
       [
+        h('h3', {}, 'TodoItem.ts - trigger, find, emit'),
         todos.value.map(todo => 
           h(
             TodoItem, 
@@ -34,6 +40,15 @@ export const App = defineComponent({
               onToggle: () => toggleComplete(todo) 
             }
           )
+        ),
+        h('hr'),
+        h('h3', {}, 'Toggle.ts - exists'),
+        h(
+          Toggle, 
+          { 
+            visible: visible.value, 
+            onToggleVisible: toggleVisible
+          }
         )
       ]
     )
