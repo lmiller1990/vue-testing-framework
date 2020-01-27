@@ -59,7 +59,7 @@ const wrapper = mount(TodoItem, {
 })
 ```
 
-### getting html/text with `html` and `text`
+### Getting html/text with `html` and `text`
 
 ```ts
 test('html, text', async () => {
@@ -75,7 +75,7 @@ test('html, text', async () => {
   expect(wrapper.text()).toBe('Text content') // via $el.textContent
 })
 ```
-### finding elements with `find` and `findAll`
+### Finding elements with `find` and `findAll`
 
 ```ts
 test('find', () => {
@@ -104,7 +104,7 @@ test('findAll', () => {
 })
 ```
 
-### simulating events with `trigger`
+### Simulating events with `trigger`
 
 ```ts
 test('trigger', async () => {
@@ -130,7 +130,7 @@ test('trigger', async () => {
 })
 ```
 
-### testing classes with `classes`
+### Testing classes with `classes`
 
 ```ts
 test('classes', () => {
@@ -144,4 +144,26 @@ test('classes', () => {
 
   expect(wrapper.find('.my-class-name').classes()).toContain('my-class-name')
 })
+```
+
+### Passing default and named slots
+
+```ts
+const Component = defineComponent({
+  render() {
+    return h('div', {}, [
+      h('div', {}, this.$slots.foo()),
+      h('div', {}, this.$slots.default())
+    ])
+  }
+})
+
+const wrapper = mount(Component, {
+  slots: {
+    default: 'Default',
+    foo: 'Named Slot'
+  }
+})
+
+expect(wrapper.html()).toBe('<div><div>Named Slot</div><div>Default</div></div>')
 ```
