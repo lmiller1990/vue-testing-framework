@@ -9,10 +9,28 @@ export const ItemWithSlots = defineComponent({
   }
 })
 
-test('slots', () => {
+test('slots - default', () => {
   const wrapper = mount(ItemWithSlots, {
-    slots: h('span', {}, 'Default Slot')
+    slots: {
+      default: h('span', {}, 'Default Slot')
+    }
   })
 
   expect(wrapper.html()).toBe('<div><span>Default Slot</span></div>')
+})
+
+test('slots - named', () => {
+  const Comp = defineComponent({
+    render() {
+      return h('div', {}, this.$slots.foo())
+    }
+  })
+
+  const wrapper = mount(Comp, {
+    slots: {
+      foo: h('span', {}, 'Foo')
+    }
+  })
+
+  expect(wrapper.html()).toBe('<div><span>Foo</span></div>')
 })
