@@ -28,6 +28,37 @@ If you see some code that looks suspect/could be improved, you can make an issue
 
 ## Supported Features
 
+### Typesafe mounting options
+
+```ts
+interface Todo {
+  id: number
+  text: string
+  complete: boolean
+}
+
+const TodoItem = defineComponent({
+  props: {
+    todo: {
+      type: Object as () => Todo,
+      required: true
+    }
+  }
+})
+
+const wrapper = mount(TodoItem, {
+  props: {
+    todo: {
+      id: 1,
+      complete: false, 
+      //  IDE will warn you!
+      // Property 'text' is missing in type '{ id: number; complete: boolean; }' 
+      // but required in type 'Todo'.ts(2741)
+    }
+  }
+})
+```
+
 ### getting html/text with `html` and `text`
 
 ```ts
