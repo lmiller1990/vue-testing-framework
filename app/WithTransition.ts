@@ -5,7 +5,7 @@ export const WithTransition = defineComponent({
   name: 'WithTransition',
 
   setup() {
-    const show = ref(true)
+    const show = ref(false)
     const onClick = () => show.value = !show.value
 
     return () => {
@@ -23,15 +23,9 @@ export const WithTransition = defineComponent({
           key: 'k1',
         }, 'This has a fade transition')
 
-      const other = h(
-        'div', {
-        id: 'other',
-        key: 'k2'
-      }, 'This does not')
-
       return h('div', [
         btn,
-        h(Transition, { name: 'fade' }, [show.value ? message : other])
+        h(Transition, { name: 'fade' }, () => show.value ? message : null)
       ])
     }
   }
