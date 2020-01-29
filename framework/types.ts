@@ -12,5 +12,3 @@ export interface WrapperAPI {
 export interface Hashmap<T> {
   [key: string]: T
 }
-
-export type Wrapper = VueWrapper | DOMWrapper | ErrorWrapper

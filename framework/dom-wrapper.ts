@@ -1,5 +1,6 @@
-import { WrapperAPI, Wrapper } from './types'
 import { nextTick } from 'vue'
+
+import { WrapperAPI } from './types'
 import { ErrorWrapper } from './error-wrapper'
 
 export class DOMWrapper<ElementType extends Element> implements WrapperAPI {
@@ -25,7 +26,7 @@ export class DOMWrapper<ElementType extends Element> implements WrapperAPI {
     return this.element.outerHTML
   }
 
-  find<T extends Element>(selector: string): Wrapper {
+  find<T extends Element>(selector: string): DOMWrapper<T> | ErrorWrapper {
     const result = this.element.querySelector<T>(selector)
     if (result) {
       return new DOMWrapper<T>(result)
@@ -34,7 +35,7 @@ export class DOMWrapper<ElementType extends Element> implements WrapperAPI {
     return new ErrorWrapper(selector)
   }
 
-  findAll<T extends Element>(selector: string): DOMWrapper<T>[] | Wrapper {
+  findAll<T extends Element>(selector: string): DOMWrapper<T>[] {
     return Array.from(this.element.querySelectorAll<T>(selector)).map(x => new DOMWrapper(x))
   }
 
