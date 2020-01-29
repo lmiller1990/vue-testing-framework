@@ -2,6 +2,7 @@ import { ComponentPublicInstance } from 'vue'
 
 import { DOMWrapper } from './dom-wrapper'
 import { WrapperAPI } from './types'
+import { ErrorWrapper } from './error-wrapper'
 
 export class VueWrapper implements WrapperAPI {
   vm: ComponentPublicInstance
@@ -14,6 +15,10 @@ export class VueWrapper implements WrapperAPI {
     throw Error('TODO: Implement VueWrapper#classes')
   }
 
+  exists() {
+    return true
+  }
+
   html() {
     return this.vm.$el.outerHTML
   }
@@ -22,11 +27,13 @@ export class VueWrapper implements WrapperAPI {
     return this.vm.$el.textContent
   }
 
-  find<T extends Element>(selector: string): DOMWrapper<T> | undefined {
+  find<T extends Element>(selector: string): DOMWrapper<T> | ErrorWrapper {
     const result = this.vm.$el.querySelector(selector) as T
     if (result) {
       return new DOMWrapper(result)
     }
+
+    return new ErrorWrapper(selector)
   }
 
   findAll<T extends Element>(selector: string): DOMWrapper<T>[] {
