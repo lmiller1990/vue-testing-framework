@@ -33,7 +33,7 @@ export class VueWrapper implements WrapperAPI {
       return new DOMWrapper(result)
     }
 
-    return new ErrorWrapper(selector)
+    return new ErrorWrapper({ selector })
   }
 
   findAll<T extends Element>(selector: string): DOMWrapper<T>[] {

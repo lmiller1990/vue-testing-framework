@@ -1,9 +1,11 @@
-import { WrapperAPI } from './types'
+interface Options {
+  selector: string
+}
 
 export class ErrorWrapper {
   selector: string
 
-  constructor(selector: string) {
+  constructor({ selector }: Options) {
     this.selector = selector
   }
 
