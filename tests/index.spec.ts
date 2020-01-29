@@ -60,7 +60,7 @@ describe('Toggle', () => {
       }
     })
 
-    expect(wrapper.find('#message')).toBeFalsy()
+    expect(wrapper.find('#message').exists()).toBe(false)
   })
 
   it('reveals message when visible is true', () => {
@@ -70,6 +70,6 @@ describe('Toggle', () => {
       }
     })
 
-    expect(wrapper.find('#message')).toBeTruthy()
+    expect(wrapper.find('#message').exists()).toBe(true)
   })
 })

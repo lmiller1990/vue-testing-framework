@@ -4,6 +4,7 @@ interface Options {
 
 export class ErrorWrapper {
   selector: string
+  element: null
 
   constructor({ selector }: Options) {
     this.selector = selector
@@ -17,6 +18,10 @@ export class ErrorWrapper {
     throw this.wrapperError('classes')
   }
 
+  exists() {
+    return false
+  }
+
   find() {
     throw this.wrapperError('find')
   }
@@ -25,7 +30,7 @@ export class ErrorWrapper {
     throw this.wrapperError('findAll')
   }
 
-  exists() {
-    return false
+  trigger() {
+    throw this.wrapperError('trigger')
   }
 }
