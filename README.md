@@ -75,7 +75,7 @@ test('html, text', async () => {
   expect(wrapper.text()).toBe('Text content') // via $el.textContent
 })
 ```
-### Finding elements with `find` and `findAll`
+### Finding elements with `find` and `findAll`, asserting presence with `exists`
 
 ```ts
 test('find', () => {
@@ -86,7 +86,7 @@ test('find', () => {
   })
 
   const wrapper = mount(Component)
-  expect(wrapper.find('#my-span')).toBeTruthy()
+  expect(wrapper.find('#my-span').exists()).toBe(true)
 })
 
 test('findAll', () => {
