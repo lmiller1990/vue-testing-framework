@@ -1,6 +1,7 @@
 import { defineComponent, h, ref } from 'vue'
 
 import { TodoItem } from './TodoItem'
+import { WithTransition } from './WithTransition'
 import { Toggle } from './Toggle'
 import { ItemWithSlots } from './ItemWithSlots'
 import { Message } from './Message'
@@ -56,7 +57,10 @@ export const App = defineComponent({
         ),
         h('hr'),
         h('h3', {}, 'Slots - default'),
-        h(ItemWithSlots, {}, () => h(Message))
+        h(ItemWithSlots, {}, () => h(Message)),
+        h('hr'),
+        h('h3', {}, 'Transition'),
+        h(WithTransition)
       ],
     )
   }
