@@ -1,5 +1,9 @@
 <template>
-  <div>{{ msg }}</div>
+  <div id="root">
+    <div id="msg">
+      {{ msg }}
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
