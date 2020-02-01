@@ -30,6 +30,10 @@ export class ErrorWrapper {
     throw this.wrapperError('findAll')
   }
 
+  text() {
+    throw this.wrapperError('text')
+  }
+
   trigger() {
     throw this.wrapperError('trigger')
   }
