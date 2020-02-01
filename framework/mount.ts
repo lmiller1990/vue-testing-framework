@@ -35,7 +35,7 @@ export function mount<P>(
     }
   })
 
-  const vm = createApp().mount(Parent(options && options.props), '#app')
+  const vm = createApp(Parent(options && options.props)).mount('#app')
 
   return createWrapper(vm)
 }
