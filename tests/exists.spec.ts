@@ -1,7 +1,6 @@
 import { h, defineComponent } from 'vue'
 
 import { mount } from '../framework'
-// @ts-ignore
 import Hello from './components/Hello.vue'
 
 describe('exists', () => {
