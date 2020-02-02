@@ -5,7 +5,12 @@
     "module": "esnext",
     "lib": ["DOM", "ES2015", "ES2017"],
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["app"]
+  "include": [
+    "app",
+    "tests",
+    "types"
+  ]
 }

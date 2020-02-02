@@ -4,24 +4,22 @@ import { mount } from '../framework'
 
 describe('exists', () => {
   it('returns false when element does not exist', () => {
-    const Comp = defineComponent({
+    const Component = defineComponent({
       render() {
-        return h('div')
+        return h('div', [h('div', { id: 'msg' })])
       }
     })
-
-    const wrapper = mount(Comp)
-    expect(wrapper.find('span').exists()).toBe(false)
+    const wrapper = mount(Component)
+    expect(wrapper.find('#not-msg').exists()).toBe(false)
   })
 
   it('returns true when element does exist', () => {
-    const Comp = defineComponent({
+    const Component = defineComponent({
       render() {
-        return h('div', [h('span')])
+        return h('div', [h('div', { id: 'msg' })])
       }
     })
-
-    const wrapper = mount(Comp)
-    expect(wrapper.find('span').exists()).toBe(true)
+    const wrapper = mount(Component)
+    expect(wrapper.find('#msg').exists()).toBe(true)
   })
 })
