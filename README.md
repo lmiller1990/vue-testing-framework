@@ -6,7 +6,7 @@ Experimental Vue 3 testing framework build for a first class TypeScript developm
 
 Just an experiment. I want to try building some small apps with Vue 3, testing them as I go. Upgrading Vue Test Utils to work with Vue 3 will take some time and consideration. This is me exploring what a less featureful, TypeScript first testing framework might look like.
 
-This is **not** the next iteration of VTU. It's just something I'm working on, to learn better how to build a testing framework. This will help me make VTU better in the future. No-one wants to use someone's side project or learning project in production - which is why I'm exploring ideas here. I hope VTU will benefit from my learnings.
+This is **not** the next iteration of VTU. It's just something I'm working on, to learn better how to build a testing framework. This will help me make VTU better in the future. No-one wants to use someone's side project or learning project in production - which is why I'm exploring ideas here. I hope VTU will benefit from my learnings. Maybe the good parts will make it into VTU for Vue.js 3.
 
 If you see some code that looks suspect/could be improved, you can make an issue/PR or contact me on Vueland, or send me an email.
 
@@ -17,7 +17,7 @@ If you see some code that looks suspect/could be improved, you can make an issue
 - Excellent TypeScript integration - no need for typecasting, `!`, `ts-ignore` etc.
 - "The more your tests resemble the way your software is used, the more confidence they can give you" - Kent Dodds
 - Avoid the need to access the raw `vm` element
-- Support SFCs by `vue-jest`
+- Support SFCs
 
 ## Features I want to try and support
 
@@ -167,5 +167,43 @@ test('slots - default and named', () => {
   })
 
   expect(wrapper.html()).toBe('<div><div><h1>Named Slot</h1></div><div>Default</div></div>')
+})
+```
+
+### Supports SFCs using lang="ts" via [Vue Jest Transformer](https://github.com/lmiller1990/vue-jest-transformer) 
+
+```vue
+<!-- Hello.vue-->
+<template>
+  <div id="root">
+    <div id="msg">
+      {{ msg }}
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  name: 'Hello',
+
+  setup() {
+    return {
+      msg: ref('Hello world')
+    }
+  }
+})
+</script>
+```
+
+```ts
+import Hello from './components/Hello.vue'
+
+describe('sfc', () => {
+  it('mounts an sfc via vue-test-transformer', () => {
+    const wrapper = mount(Hello)
+    expect(wrapper.find('#msg').text()).toBe('Hello world')
+  })
 })
 ```
