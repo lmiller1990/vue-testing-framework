@@ -1,4 +1,4 @@
-import { ComponentPublicInstance } from 'vue'
+import { ComponentPublicInstance, getCurrentInstance } from 'vue'
 
 import { DOMWrapper } from './dom-wrapper'
 import { WrapperAPI } from './types'
@@ -6,9 +6,11 @@ import { ErrorWrapper } from './error-wrapper'
 
 export class VueWrapper implements WrapperAPI {
   vm: ComponentPublicInstance
+  __emitted: Record<string, unknown[]> = {}
 
-  constructor(vm: ComponentPublicInstance) {
+  constructor(vm: ComponentPublicInstance, events: Record<string, unknown[]>) {
     this.vm = vm
+    this.__emitted = events
   }
 
   classes(): string[] {
@@ -17,6 +19,10 @@ export class VueWrapper implements WrapperAPI {
 
   exists() {
     return true
+  }
+
+  emitted() {
+    return this.__emitted
   }
 
   html() {
@@ -46,6 +52,6 @@ export class VueWrapper implements WrapperAPI {
   }
 }
 
-export function createWrapper(vm: ComponentPublicInstance): VueWrapper {
-  return new VueWrapper(vm)
+export function createWrapper(vm: ComponentPublicInstance, events: Record<string, unknown[]>): VueWrapper {
+  return new VueWrapper(vm, events)
 }
