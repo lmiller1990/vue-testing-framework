@@ -38,7 +38,6 @@ export function mount<P>(
   const events: Record<string, unknown[]> = {}
   const emitMixin = {
     beforeCreate() {
-      getCurrentInstance().sink.events = {}
       const originalEmit = getCurrentInstance().emit
       getCurrentInstance().emit = (event: string, ...args: unknown[]) => {
         events[event] 
