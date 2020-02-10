@@ -46,6 +46,16 @@ export function mount<P>(
 
         return originalEmit.call(getCurrentInstance(), event, ...args)
       }
+
+      if (getCurrentInstance().setupContext) {
+        getCurrentInstance().setupContext.emit = (event: string, ...args: unknown[]) => {
+          events[event]
+            ? events[event] = [...events[event], [...args]]
+            : events[event] = [[...args]]
+
+          return originalEmit.call(getCurrentInstance(), event, ...args)
+        }
+      }
     }
   }
 

@@ -22,8 +22,10 @@ describe('emitted', () => {
     expect(wrapper.emitted().hello[1]).toEqual(['foo', 'bar'])
   })
 
-  it('works with context.emit', () => {
+  it.only('works with context.emit', () => {
     const Component = defineComponent({
+      name: 'ContextEmit',
+
       setup(props, ctx) {
         return () => 
           h(
