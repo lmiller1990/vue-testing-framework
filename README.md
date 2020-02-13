@@ -14,9 +14,13 @@ A simple framework for testing Vue 3 apps. Parts of it will likely become the ne
 - Excellent documentation
 - Fix pain points of VTU beta (stubs, shallowMount, slots, testing third party components libs)
 
-## Contributing
+## Codebase and Contributing
 
-Take a look at the existing issues, or open one of your own.
+- There are some existing issues; take a look, and ask if you have questions.
+- Install deps with `yarn install`.
+- Run the tests with `yarn test`.
+- There is a simple app you can run to try things out/sanity check you component code is actually valid and working in a browser. Run it with `yarn dev` and open `index.html` in your browser (no hot reload, you need to refresh the page to see you changes)
+- NOTE: one of the emit specs is currently failing; this will be fixed with Vue3 alpha 5. See the comment above the failing spec
 
 ## Supported Features/API
 
