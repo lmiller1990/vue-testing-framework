@@ -4,29 +4,21 @@ Experimental Vue 3 testing framework build for a first class TypeScript developm
 
 ## What is this?
 
-Just an experiment. I want to try building some small apps with Vue 3, testing them as I go. Upgrading Vue Test Utils to work with Vue 3 will take some time and consideration. This is me exploring what a less featureful, TypeScript first testing framework might look like.
-
-This is **not** the next iteration of VTU. It's just something I'm working on, to learn better how to build a testing framework. This will help me make VTU better in the future. No-one wants to use someone's side project or learning project in production - which is why I'm exploring ideas here. I hope VTU will benefit from my learnings. Maybe the good parts will make it into VTU for Vue.js 3.
-
-If you see some code that looks suspect/could be improved, you can make an issue/PR or contact me on Vueland, or send me an email.
+A simple framework for testing Vue 3 apps. Parts of it will likely become the next iteration for Vue Test Utils.
 
 ## Goals
 
-- Testing components and applications in an "end to end" manner. I like the philosophy of [Testing Library](https://testing-library.com/).
 - Support Vue.js 3.0
 - Excellent TypeScript integration - no need for typecasting, `!`, `ts-ignore` etc.
-- "The more your tests resemble the way your software is used, the more confidence they can give you" - Kent Dodds
 - Avoid the need to access the raw `vm` element
-- Support SFCs
+- Excellent documentation
+- Fix pain points of VTU beta (stubs, shallowMount, slots, testing third party components libs)
 
-## Features I want to try and support
+## Contributing
 
-- Capture emitted events
-- Good API for testing components with slots (VTU pain point)
-- Merging `shalllowMount` into `mount` somehow. `mount(Component, { shallow: true })` or something?
-- Tools for testing composition API components
+Take a look at the existing issues, or open one of your own.
 
-## Supported Features
+## Supported Features/API
 
 ### Typesafe mounting options
 
