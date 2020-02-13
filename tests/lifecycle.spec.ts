@@ -20,8 +20,8 @@ describe('lifecycles', () => {
 
     mount(Component)
     await nextTick()
-    expect(beforeMountFn).toHaveBeenCalled()   // fails
-    expect(onBeforeMountFn).toHaveBeenCalled() // fails
-    expect(onBeforeMountFn).toHaveBeenCalled() // fails
+    expect(beforeMountFn).toHaveBeenCalled()
+    expect(onBeforeMountFn).toHaveBeenCalled()
+    expect(onBeforeMountFn).toHaveBeenCalled()
   })
 })
