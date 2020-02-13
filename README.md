@@ -170,6 +170,29 @@ test('slots - default and named', () => {
 })
 ```
 
+### Tracking Events with `emitted`
+
+```ts
+test('emitted', () => {
+  const Component = defineComponent({
+    render() {
+      return h(
+        'div', [
+        h('button', { onClick: () => this.$emit('hello', 'foo', 'bar') })
+      ]
+      )
+    }
+  })
+
+  const wrapper = mount(Component)
+
+  wrapper.find('button').trigger('click')
+
+  expect(wrapper.emitted().hello[0]).toEqual(['foo', 'bar'])
+})
+  ```
+
+
 ### Supports SFCs using lang="ts" via [Vue Jest Transformer](https://github.com/lmiller1990/vue-jest-transformer) 
 
 ```vue
