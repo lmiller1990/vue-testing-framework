@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, createApp, VNode, defineComponent, h } from 'vue'
+import { ComponentPublicInstance, createApp, VNode, defineComponent, h, getCurrentInstance } from 'vue'
 
 import { Hashmap } from './types'
 import { VueWrapper, createWrapper } from './vue-wrapper'
@@ -35,7 +35,23 @@ export function mount<P>(
     }
   })
 
-  const vm = createApp(Parent(options && options.props)).mount('#app')
+  const events: Record<string, unknown[]> = {}
+  const emitMixin = {
+    beforeCreate() {
+      const originalEmit = getCurrentInstance().emit
+      getCurrentInstance().emit = (event: string, ...args: unknown[]) => {
+        events[event] 
+          ? events[event] = [...events[event], [...args]]
+          : events[event] = [[...args]]
 
-  return createWrapper(vm)
+        return originalEmit.call(getCurrentInstance(), event, ...args)
+      }
+    }
+  }
+
+  const vm = createApp(Parent(options && options.props))
+  vm.mixin(emitMixin)
+  const app = vm.mount('#app')
+
+  return createWrapper(app, events)
 }

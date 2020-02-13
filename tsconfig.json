@@ -10,7 +10,7 @@
     "baseUrl": ".",
     "paths": {
       "vue": [
-        "node_modules/vue/dist/vue.esm.prod.js"
+        "node_modules/vue/dist/vue.esm.js"
       ]
     }
   },

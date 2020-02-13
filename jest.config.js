@@ -11,8 +11,9 @@ module.exports = {
   ],
   moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node'],
   moduleNameMapper: {
-    "^vue$": "<rootDir>/node_modules/vue/dist/vue.esm.prod.js"
-  }
+    "^vue$": "<rootDir>/node_modules/vue/dist/vue.esm.js"
+  },
+  setupFiles: ['./tests/setup.js']
 }
 
 
