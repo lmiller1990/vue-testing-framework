@@ -1,5 +1,5 @@
 module.exports = {
-  base: '/',
+  base: '/vue-testing-framework/',
   title: 'Vue Testing Framework',
   locales: {
     '/': {
