@@ -1,3 +1,4 @@
+rf -rf docs
 cd packages/docs
 yarn docs:build
 packages/docs/.vuepress/dist docs
