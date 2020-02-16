@@ -187,6 +187,24 @@ test('classes', () => {
 })
 ```
 
+### `exists`
+
+```vue
+<template>
+  <div>
+    <span />
+  </div>
+</template>
+```
+
+```ts
+test('exists', () => {
+  const wrapper = mount(Component)
+
+  expect(wrapper.find('span').exists()).toBe(true)
+})
+```
+
 ### `emitted`
 
 ```vue
